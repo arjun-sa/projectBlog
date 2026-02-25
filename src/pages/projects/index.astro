@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const allPosts = await getCollection('posts');
+
+const projectMap = new Map<string, typeof allPosts>();
+for (const post of allPosts) {
+  const name = post.data.project;
+  if (!projectMap.has(name)) projectMap.set(name, []);
+  projectMap.get(name)!.push(post);
+}
+
+const projects = [...projectMap.entries()]
+  .map(([name, posts]) => {
+    const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    return { name, postCount: posts.length, latestDate: sorted[0].data.date };
+  })
+  .sort((a, b) => b.latestDate.getTime() - a.latestDate.getTime());
+---
+
+<BaseLayout title="Projects">
+  <h1>Projects</h1>
+  <p class="subtitle">Things I'm building, thinking about, or have finished.</p>
+
+  <div class="project-grid">
+    {
+      projects.map((project) => (
+        <ProjectCard
+          slug={project.name}
+          title={project.name.replace(/-/g, ' ')}
+          postCount={project.postCount}
+          latestDate={project.latestDate}
+        />
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+</style>

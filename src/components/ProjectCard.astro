@@ -1,0 +1,49 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  postCount: number;
+  latestDate: Date;
+}
+
+const { slug, title, postCount, latestDate } = Astro.props;
+
+const formattedDate = latestDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a href={`/projects/${slug}`} class="project-card">
+  <h3>{title}</h3>
+  <p>
+    {postCount} {postCount === 1 ? 'post' : 'posts'} &middot; last updated {formattedDate}
+  </p>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  h3 {
+    margin-bottom: 0.35rem;
+    text-transform: capitalize;
+  }
+
+  p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'A personal project blog' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Arjun's Ideas</title>
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="container">
+        <p>&copy; {new Date().getFullYear()} Arjun's Ideas. Built with Astro.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --bg: #ffffff;
+    --bg-muted: #f9fafb;
+    --border: #e5e7eb;
+    --radius: 8px;
+    --max-width: 900px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto,
+      Oxygen, Ubuntu, sans-serif;
+  }
+
+  html {
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-heading a {
+    font-size: 0.875rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    margin-top: 3rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: capitalize;
+  }
+
+  .badge.idea {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .badge.in-progress {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .badge.completed {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .badge.on-hold {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+
+  .prose {
+    max-width: 65ch;
+  }
+
+  .prose h2 {
+    margin-top: 2rem;
+  }
+
+  .prose p {
+    margin-bottom: 1rem;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.25rem;
+  }
+
+  .prose code {
+    background: var(--bg-muted);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  .prose pre {
+    background: var(--bg-muted);
+    padding: 1rem;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+
+  .prose pre code {
+    background: none;
+    padding: 0;
+  }
+
+  .prose img {
+    max-width: 100%;
+    border-radius: var(--radius);
+  }
+
+  .prose blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+</style>

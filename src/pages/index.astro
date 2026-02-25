@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const allPosts = await getCollection('posts');
+
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+// Derive projects from posts
+const projectMap = new Map<string, { posts: typeof allPosts }>();
+for (const post of allPosts) {
+  const name = post.data.project;
+  if (!projectMap.has(name)) projectMap.set(name, { posts: [] });
+  projectMap.get(name)!.posts.push(post);
+}
+
+const projects = [...projectMap.entries()]
+  .map(([name, { posts }]) => {
+    const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    return { name, postCount: posts.length, latestDate: sorted[0].data.date };
+  })
+  .sort((a, b) => b.latestDate.getTime() - a.latestDate.getTime())
+  .slice(0, 4);
+---
+
+<BaseLayout title="Home">
+  <section class="hero">
+    <h1>Arjun's Ideas</h1>
+    <p>Documenting ideas, progress, and lessons learned as I build things.</p>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>Recent Posts</h2>
+      <a href="/blog">View all &rarr;</a>
+    </div>
+    <div class="post-list">
+      {
+        recentPosts.map((post) => (
+          <PostCard
+            slug={post.id}
+            title={post.data.title}
+            date={post.data.date}
+            project={post.data.project}
+            summary={post.data.summary}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>Projects</h2>
+      <a href="/projects">View all &rarr;</a>
+    </div>
+    <div class="project-grid">
+      {
+        projects.map((project) => (
+          <ProjectCard
+            slug={project.name}
+            title={project.name.replace(/-/g, ' ')}
+            postCount={project.postCount}
+            latestDate={project.latestDate}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 3rem;
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+  }
+
+  section + section {
+    margin-top: 3rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+</style>

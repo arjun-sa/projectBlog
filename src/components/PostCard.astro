@@ -1,0 +1,63 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  date: Date;
+  project: string;
+  summary?: string;
+}
+
+const { slug, title, date, project, summary } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a href={`/posts/${slug}`} class="post-card">
+  <div class="post-card-meta">
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <span class="separator">&middot;</span>
+    <span class="project-name">{project}</span>
+  </div>
+  <h3>{title}</h3>
+  {summary && <p>{summary}</p>}
+</a>
+
+<style>
+  .post-card {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+
+  .post-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .post-card-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .separator {
+    margin: 0 0.35rem;
+  }
+
+  h3 {
+    margin-bottom: 0.35rem;
+  }
+
+  p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

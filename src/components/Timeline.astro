@@ -1,0 +1,99 @@
+---
+interface TimelineItem {
+  slug: string;
+  title: string;
+  date: Date;
+  summary?: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 ? (
+    <div class="timeline">
+      {items.map((item) => {
+        const formattedDate = item.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        });
+        return (
+          <div class="timeline-item">
+            <div class="timeline-marker" />
+            <div class="timeline-content">
+              <time datetime={item.date.toISOString()}>{formattedDate}</time>
+              <h3>
+                <a href={`/posts/${item.slug}`}>{item.title}</a>
+              </h3>
+              {item.summary && <p>{item.summary}</p>}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  ) : (
+    <p class="empty">No updates yet.</p>
+  )
+}
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 1.75rem;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .timeline-content time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .timeline-content h3 {
+    margin: 0.15rem 0 0.25rem;
+  }
+
+  .timeline-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .empty {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+</style>
