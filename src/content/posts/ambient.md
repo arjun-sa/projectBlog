@@ -1,8 +1,10 @@
+---
 title: "ambient: kill time in vscode"
 date: 2026-02-25
 project: ambient
 summary: how I built ambient
 tags: [vscode]
+---
 
 Ambient is a VS Code extension that is essentially a way for you to kill time and distract yourself, or sort of entertain yourself, while staying "in context" so that you aren't clicking off VS Code while waiting for the AI tool you're using to finish generating the code. 
 

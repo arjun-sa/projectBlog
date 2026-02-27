@@ -1,3 +1,4 @@
+---
 title: "EduMate: Claude Builder Hackathon at UGA"
 date: 2026-02-25
 project: EduMate

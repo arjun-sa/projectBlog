@@ -1,8 +1,10 @@
+---
 title: "testengine: strategy games for club recruitment"
 date: 2026-02-25
 project: testengine
 summary: building trading games for traders@uga
 tags: [typescript]
+---
 
 
 testengine is a repo where I've been building a hub for multiplayer strategy/trading games.
