@@ -2,7 +2,7 @@
 
 my website
 
-[Link text][id]
+[deployed here][id]
 
 [id]: https://arjunsakthi.netlify.app
 
