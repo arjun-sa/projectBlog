@@ -1,6 +1,6 @@
 ---
 title: "WisprClaw: UGAHacks 11"
-date: 2026-02-25
+date: 2026-02-26
 project: wisprclaw
 summary: how wisprclaw came to be
 tags: [SwiftUI, agentic-ai]

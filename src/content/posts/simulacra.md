@@ -1,6 +1,6 @@
 ---
 title: "simulacra: Hacklytics: Golden Byte"
-date: 2026-02-25
+date: 2026-02-28
 project: simulacra
 summary: how I built simulacra and my thoughts on distributed system testing and simulation
 tags: [typescript]

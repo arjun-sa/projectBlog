@@ -1,6 +1,6 @@
 ---
 title: "testengine: strategy games for club recruitment"
-date: 2026-02-25
+date: 2026-02-27
 project: testengine
 summary: building trading games for traders@uga
 tags: [typescript]
