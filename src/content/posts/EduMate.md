@@ -14,9 +14,9 @@ The concept for EduMate came to me when I was driving from Atlanta to Athens. I 
 
 ## Implementation
 
-EduMate is built on a Swift front end with a Python back end that processes the speech and sends it to an Ollama model. I wanted to make it a local model so that EduMate can be used without Wi-Fi. I also implemented a RAG system within this or with this Ollama model so that you can give EduMate your class material and it can pull directly from there to ask you questions and stuff like that.
+EduMate is built on a Swift frontend with a Python backend that processes the speech and sends it to an Ollama model. I wanted to make it a local model so that EduMate can be used without Wi-Fi. I also implemented a RAG system within this or with this Ollama model so that you can give EduMate your class material and it can pull directly from there to ask you questions and stuff like that.
 There are two different modes in EduMate:
-- A sort of quiz mode where EduMate can quiz you aloud and ask you to explain certain concepts.
+- A quiz mode where EduMate can quiz you aloud and ask you to explain certain concepts.
 - A lecture mode where EduMate can sort of just talk to you and explain the different concepts in your material to you in different ways so that you can understand it better.
 
 ## What's next

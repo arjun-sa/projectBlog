@@ -16,6 +16,14 @@ const { title, description = 'A personal project blog' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title} | Arjun's Ideas</title>
+    <script is:inline>
+      // Apply saved theme before first paint to avoid flash
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body>
     <Nav />
@@ -63,6 +71,16 @@ const { title, description = 'A personal project blog' } = Astro.props;
     --max-width: 900px;
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto,
       Oxygen, Ubuntu, sans-serif;
+  }
+
+  html.dark {
+    --accent: #60a5fa;
+    --accent-light: #1e3a5f;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --bg: #0f172a;
+    --bg-muted: #1e293b;
+    --border: #334155;
   }
 
   html {
@@ -187,8 +205,17 @@ const { title, description = 'A personal project blog' } = Astro.props;
     color: #065f46;
   }
   .badge.on-hold {
-    background: #f3f4f6;
-    color: #6b7280;
+    background: var(--bg-muted);
+    color: var(--text-muted);
+  }
+
+  html.dark .badge.idea {
+    background: #422006;
+    color: #fcd34d;
+  }
+  html.dark .badge.completed {
+    background: #052e16;
+    color: #6ee7b7;
   }
 
   .prose {
